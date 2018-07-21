@@ -1,15 +1,9 @@
 #include <pcap.h>
 #include <stdio.h>
-//#include <netinet/if_ether.h>
-//#include <netinet/in.h>
 #include <net/ethernet.h>
 #include <pcap/pcap.h>
 #include <stdio.h>
-//#include <netinet/ip.h>
 #include <netinet/tcp.h>
-//#include <netinet/udp.h>
-//#include <netinet/ip_icmp.h>
-//#include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
@@ -121,20 +115,16 @@ int main(int argc, char* argv[]) {
     {
         packet += sizeof(struct ether_header);
         ip_h = (struct ip_hdr *)packet;
-        // IP 헤더에서 데이타 정보를 출력한다.
         printMac_Info(et_h);
         printIP_Info(ip_h);
-        //printIP_Info(ip_h);
-        // 만약 TCP 데이타 라면
-        // TCP 정보를 출력한다. 
-        //
+        //0x05 05 TCP info 
         if (ip_h->ip_p == IPPROTO_TCP)
         {
             packet += sizeof(struct ip_hdr);
             tcp_h = (struct tcp_hdr*)packet;
 	    printTCP_Info(tcp_h);
         }
-        //0x11 17
+        //0x11 17 UDP info
         else if (ip_h->ip_p == IPPROTO_UDP)
         {
             packet += sizeof(struct ip_hdr);
