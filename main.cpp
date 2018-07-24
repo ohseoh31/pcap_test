@@ -63,7 +63,7 @@ void printTCP_Info(struct tcp_hdr *tcp_h) //TCP 20byt info Not Optional Header
     printf("		seq Numb    : %d(0x%08x)\n" , ntohs(tcp_h->th_seq), ntohs(tcp_h->th_seq));
     printf("		ack Numb    : %d(0x%08x)\n" , ntohs(tcp_h->th_ack), ntohs(tcp_h->th_ack));
     //printf("		Version     : %02x\n", tcp_h->th_x2);
-    printf("		Header Len  : %d(0x%02x)\n", (tcp_h->th_off*5), (tcp_h->th_off*5)); //x5 value is length
+    printf("		Header Len  : %d(0x%02x)\n", (tcp_h->th_off*4), (tcp_h->th_off*4)); //x4 value is length
     printf("		---------------------------------------------------------\n");
 }
 //TODO set the UDP
