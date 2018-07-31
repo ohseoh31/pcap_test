@@ -126,7 +126,7 @@ int main(int argc, char* argv[]) {
 	    packet += tcp_h->th_off*4;
 	    printf("		data\n");
 	    for (i=0; i< 16 ; i++ ){
-                  printf("%02x",packet[i]);
+                  printf("		%02x ",packet[i]);
 	    }
 	    printf("		\n");	
 		
