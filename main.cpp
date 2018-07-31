@@ -123,6 +123,13 @@ int main(int argc, char* argv[]) {
             packet += sizeof(struct ip_hdr);
             tcp_h = (struct tcp_hdr*)packet;
 	    printTCP_Info(tcp_h);
+	    packet += tcp_h->th_off*4;
+	    printf("		data\n");
+	    for (i=0; i< 16 ; i++ ){
+                  printf("%02x",packet[i]);
+	    }
+	    printf("		\n");	
+		
         }
         //0x11 17 UDP info
         else if (ip_h->ip_p == IPPROTO_UDP)
