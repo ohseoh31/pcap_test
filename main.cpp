@@ -60,8 +60,8 @@ void printTCP_Info(struct tcp_hdr *tcp_h) //TCP 20byt info Not Optional Header
     printf("		TCP 패킷\n");
     printf("		Src Port    : %d(0x%04x)\n" , ntohs(tcp_h->th_sport), ntohs(tcp_h->th_sport));
     printf("		Dst Port    : %d(0x%04x)\n" , ntohs(tcp_h->th_dport), ntohs(tcp_h->th_dport));
-    printf("		seq Numb    : %d(0x%08x)\n" , ntohs(tcp_h->th_seq), ntohs(tcp_h->th_seq));
-    printf("		ack Numb    : %d(0x%08x)\n" , ntohs(tcp_h->th_ack), ntohs(tcp_h->th_ack));
+    printf("		seq Numb    : %d(0x%08x)\n" , ntohl(tcp_h->th_seq), ntohl(tcp_h->th_seq));
+    printf("		ack Numb    : %d(0x%08x)\n" , ntohl(tcp_h->th_ack), ntohl(tcp_h->th_ack));
     //printf("		Version     : %02x\n", tcp_h->th_x2);
     printf("		Header Len  : %d(0x%02x)\n", (tcp_h->th_off*4), (tcp_h->th_off*4)); //x4 value is length
     printf("		---------------------------------------------------------\n");
@@ -124,12 +124,14 @@ int main(int argc, char* argv[]) {
             tcp_h = (struct tcp_hdr*)packet;
 	    printTCP_Info(tcp_h);
 	    packet += tcp_h->th_off*4;
-	    printf("		data\n");
-	    for (i=0; i< 16 ; i++ ){
+	    if ( tcp_h->th_off*4 < 16 ) {
+	    	printf("		data\n");
+	    	for (i=0; i< 16 ; i++ ){
                   printf("		%02x ",packet[i]);
+	    	}
+	    	printf("		\n");
 	    }
-	    printf("		\n");	
-		
+			
         }
         //0x11 17 UDP info
         else if (ip_h->ip_p == IPPROTO_UDP)
